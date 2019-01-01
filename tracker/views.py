@@ -22,12 +22,14 @@ def index(request):
         kcal_left = goal_cals
     if not request.user.is_authenticated:
         return render(request, "tracker/login.html", {"message": None})
+    progress = (int(kcal) / int(goal_cals)) * 100 
     context = {
         "user": request.user,
         "date": datetime.date.today(),
         "kcal_total": int(kcal_total),
         "kcal_left": int(kcal_left),
-        "kcal_goal": int(goal_cals)
+        "kcal_goal": int(goal_cals),
+        "progress": int(progress)
     }
     return render(request, "tracker/index.html", context)
 
@@ -41,16 +43,19 @@ def goal_change(request):
 
 def register(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username=request.POST["username"],
-            email=request.POST["email"],
-            password=request.POST["password"])
-        user.save()
-        profile = Profile.objects.create(
-            goal_cals=2000,
-            user=user)
-        profile.save()
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        try:
+            user = User.objects.create_user(username=request.POST["username"],
+                email=request.POST["email"],
+                password=request.POST["password"])
+            user.save()
+            profile = Profile.objects.create(
+                goal_cals=2000,
+                user=user)
+            profile.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        except:
+            return error(request, 'You must fill in all info')
     elif request.method == 'GET':
         return render(request, "tracker/register.html")
 
@@ -88,13 +93,16 @@ def meals(request):
 
 def create_meal(request):
     if request.method == 'POST':
-        meal = Meal.objects.create(
-            userfk = request.user,
-            name = request.POST["name"],
-            kcal = request.POST["kcal"],
-            date = datetime.date.today())
-        meal.save()
-        return HttpResponseRedirect( "/")
+        try:
+            meal = Meal.objects.create(
+                userfk = request.user,
+                name = request.POST["name"],
+                kcal = request.POST["kcal"],
+                date = datetime.date.today())
+            meal.save()
+            return HttpResponseRedirect( "/")
+        except:
+            return error(request, 'You left one or more fields blank.') 
     elif request.method == 'GET':
         return render(request, "tracker/create_meal.html")
 
@@ -111,3 +119,9 @@ def add_food(request):
         return HttpResponseRedirect( "/")
     else:
         return render(request, "tracker/meals.html")
+
+def error(request, msg):
+    context = {
+        'msg': msg
+    }
+    return render(request, 'tracker/error.html', context)

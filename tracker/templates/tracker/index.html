@@ -5,21 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Calorie Tracker</h1>
     <h1>Hello, {{ user.username }}</h1>
- <ul>
-    <li>Currently logged in as: {{ user.username }}</li>
-    <li>Your calorie goal is: {{ kcal_goal }}</li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <p class='center'>Welcome to your calorie tracking application!</p>
+ <ul class='infoList'>
+    <li id='calLeft'>Calories left: <b>{{ kcal_left }}</b> </li>
+    <div id='progressbar'>
+    <p id='zero'>0 Calories</p>
+    <p id='goal'>{{ kcal_goal }} Calories</p>
+    <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow=" {{ progress }}" aria-valuemin="0" aria-valuemax="100"> {{ progress }}%</div>
+    </div>
+    </div>
+    <li>Your calorie goal is: <b>{{ kcal_goal }}</b></li>
+    <li>Date: <b>{{ date }} </b></li>
+    <li>Total Calories Eaten Today: <b>{{ kcal_total }} </b></li>
+    
 </ul>
-
-<ul>
-    <li>Date: {{ date }} </li>
-    <li>Total Calories Today: {{ kcal_total }} </li>
-    <li>Calories left: {{ kcal_left }} </li>
-</ul>
-<a href="{% url 'meals' %}">Recent Food</a>
-<a href="{% url 'create_meal' %}">Create New</a>
-<a href="{% url 'goal_change' %}">Change Calorie Goal</a>
 
 {% endblock %}

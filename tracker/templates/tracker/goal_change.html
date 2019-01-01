@@ -2,10 +2,11 @@
 
 {% block body %}
 <h1>Set Your Goal</h1>
+<p>If you don't, your goal will auto-set to <b>2000</b> calories per day</p>
 <form action="{% url 'goal_change' %}" method="post">
     {% csrf_token %}
-    <input name="goal" placeholder="Daily goal calories" type="number" min="0"/>
-    <input type="submit" value="Set"/>
+    <input name="goal" placeholder="Daily goal calories" type="number" min="0" required/>
+    <input type="submit"  class="btn btn-outline-success" value="Set"/>
 </form>
 
 {% endblock %}
