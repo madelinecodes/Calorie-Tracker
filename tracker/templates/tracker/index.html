@@ -1,0 +1,25 @@
+{% extends "tracker/base.html" %} 
+
+{% block title %}
+    Calorie Tracker
+{% endblock %}
+
+{% block body %}
+    <h1>Calorie Tracker</h1>
+    <h1>Hello, {{ user.username }}</h1>
+ <ul>
+    <li>Currently logged in as: {{ user.username }}</li>
+    <li>Your calorie goal is: {{ kcal_goal }}</li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+
+<ul>
+    <li>Date: {{ date }} </li>
+    <li>Total Calories Today: {{ kcal_total }} </li>
+    <li>Calories left: {{ kcal_left }} </li>
+</ul>
+<a href="{% url 'meals' %}">Recent Food</a>
+<a href="{% url 'create_meal' %}">Create New</a>
+<a href="{% url 'goal_change' %}">Change Calorie Goal</a>
+
+{% endblock %}

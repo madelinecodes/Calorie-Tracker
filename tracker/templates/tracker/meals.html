@@ -1,0 +1,31 @@
+{% extends "tracker/base.html" %} 
+
+{% block title %}
+    Calorie Tracker
+{% endblock %}
+
+{% block body %}
+    <h1>Logged Foods</h1>
+    <form action="{% url 'meals' %}" method="post">
+        {% csrf_token %}
+        <input name= "search" type="text" placeholder="Search Full Database">
+        <input type="submit" value="Search">
+    </form>
+
+{% if meals %}
+    {% for meal in meals %}
+        <div>
+            {{ meal.name }} : {{ meal.kcal }} Calories (on {{ meal.date|date:"D M d" }})
+        </div>
+        <form action="{% url 'add_food' %}" method="post">
+                {% csrf_token %}
+                <input name="food_name" type="hidden" value="{{ meal.name }}">
+                <input name="food_kcal" type="hidden" value="{{ meal.kcal }}">
+                <input type="submit" value="Add Food">
+        </form>
+
+    {% endfor %}
+{% else %}
+    <p>You havent logged any meals! Click create on the home page and your meals will be added here!</p>
+{% endif %}
+{% endblock %}
