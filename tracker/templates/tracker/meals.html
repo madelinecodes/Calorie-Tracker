@@ -1,33 +1,36 @@
-{% extends "tracker/base.html" %} 
+{% extends "tracker/base.html" %}
 
 {% block title %}
-    Calorie Tracker
+Calorie Tracker
 {% endblock %}
 
 {% block body %}
-    <h1>Logged Foods</h1>
-    <form action="{% url 'meals' %}" method="post">
-        {% csrf_token %}
-        <input name= "search" type="text" placeholder="Search Full Database" required>
-        <input type="submit" class="btn btn-outline-secondary" value="Search">
-    </form>
+<h1>Logged Foods</h1>
+<p> Click on a previous food to add to todays log, or search through the database to see what others have entered.</p>
+<form action="{% url 'meals' %}" method="post">
+    {% csrf_token %}
+    <i class="fa fa-search"></i>
+    <input id='searchBox' name="search" type="text" placeholder="Search..." required>
+    <input type="submit" name="search" class="btn btn-outline-secondary" value="Search Your Recent Foods">
+    <input type="submit" name="search" class="btn btn-outline-secondary" value="Search What Others Have Entered">
+</form>
 
 {% if meals %}
-    {% for meal in meals %}
-        <div>
-            <p>{{ meal.name }} : {{ meal.kcal }} Calories (on {{ meal.date|date:"D M d" }})</p>
-        </div>
-        <form action="{% url 'add_food' %}" method="post">
-                {% csrf_token %}
-                <input name="food_name" type="hidden" value="{{ meal.name }}">
-                <input name="food_kcal" type="hidden" value="{{ meal.kcal }}">
-                <input type="submit"  class="btn btn-outline-success" value="Add Food">
-        </form>
+{% for meal in meals %}
+<form class='addFood' action="{% url 'add_food' %}" method="post">
+    {% csrf_token %}
+    <input name="food_name" type="hidden" value="{{ meal.name }}">
+    <input name="food_kcal" type="hidden" value="{{ meal.kcal }}">
+    <div>
+        <button type="submit" id="addFood" class="btn btn-outline-success btn-lg btn-block" 
+        value="{{ meal.name }} : {{ meal.kcal }} Calories">
+        {{ meal.name }} : {{ meal.kcal }} Calories<span id="date">({{ meal.date|date:'D M d' }})</span></button>
+    </div>
+</form>
 
-    {% endfor %}
+{% endfor %}
 {% else %}
-    <p>There are no pre-created meals to show you.<a href="{% url 'create_meal' %}"> Create one? </a></p>
-    <li></li>
+<p>There are no pre-created meals to show you.<a href="{% url 'create_meal' %}"> Create one? </a></p>
 {% endif %}
 
 {% endblock %}

@@ -4,7 +4,6 @@
     position: fixed;
     bottom: 0%;
     width: 100%;
-    margin-top: 5%;
   }
   
   .navbar a {
@@ -29,8 +28,8 @@
   }
 
   .body {
-    height: 100%;
     background-color: rgb(255, 255, 255);
+    padding-bottom:10%;
   }
 
   .bodyText{
@@ -52,7 +51,6 @@
   p,li {
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
-    margin-top: 2%;
   }
 
   input {
@@ -60,13 +58,14 @@
   }
 
   #loggedInAs {
-    padding:15px;
+    padding:5px;
     color: black;
     position: fixed;
     text-align: right;
     top: 0;
     right: 0;
     background-color:rgb(255, 255, 255);
+    font-size: 15px;
   }
 
   .infoList {
@@ -121,6 +120,21 @@
     justify-content: space-evenly;
 
   }
+ 
+  #addFood {
+      border: none;
+      box-shadow: #333;
+      margin: 0;
+      padding: 2%;
+      text-align: left;
+      float: left;
+  }
+
+  #date {
+    float:right;
+    font-size: 15px;
+
+  }
 
   @media screen and (max-width: 600px) {
     .navbar a:not(:first-child) {display: none;}
@@ -143,12 +157,37 @@
     }
   }
 
-  input[name=search] {
-    background-image: url('searchicon.png');
-    background-position: 10px 10px; 
-    background-repeat: no-repeat;
+  #searchBox {
+    width: 45%;
+    border-radius: 50px;
+    margin-left: 0;
+    padding: 4px;
   }
-  
-  input[name=search]:focus {
-    width: 90%;
+ 
+  .informatiom {
+    font-size: 10px;
+    margin: 10px
+  }
+
+  .calculator{
+    border:1px solid rgb(143, 138, 138);
+    padding: 1%;
+    margin:3%
+  }
+
+  #calcResults{
+    margin: 1%
+  }
+
+  .inputField{
+    width: 7%;
+    margin-top: 1px;
+  }
+
+  legend {
+    display: block;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 340px;
+    margin-right: 2px;
   }

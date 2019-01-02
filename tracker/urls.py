@@ -9,6 +9,8 @@ urlpatterns = [
     path("meals", views.meals, name="meals"),
     path("create_meal", views.create_meal, name="create_meal"),
     path("goal_change", views.goal_change, name="goal_change"),
-    path("add_food", views.add_food, name="add_food")
+    path("add_food", views.add_food, name="add_food"),
+    path("goal_change", views.cal_calc, name="cal_calc")
+
 
 ]   

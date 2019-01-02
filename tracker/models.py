@@ -13,4 +13,4 @@ class Meal(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    goal_cals = models.FloatField(blank=True, null=True)
+    goal_cals = models.FloatField(blank=True, null=True,  default='2000')
